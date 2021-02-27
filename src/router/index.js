@@ -20,7 +20,7 @@ const routes = [
   },
 
   {
-    path: '/DetailsPage',
+    path: '/DetailsPage/:id',
     name: 'DetailsPage',
     component: DetailsPage
   }

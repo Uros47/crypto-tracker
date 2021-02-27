@@ -16,55 +16,51 @@
                     </thead>
                     <tbody>
                         <tr v-for="coin in coins" :key="coin.symbol">
-                            <td> {{ coin.name }}</td>
+                            <td>
+                                <router-link :to="'/DetailsPage/' + coin.id">{{ coin.name }}</router-link>
+                            </td>
                             <td>{{ coin.symbol }}</td>
                             <td>{{ coin.price }}</td>
                             <td>{{ coin.percentChange }} %</td>
                             <td>
-                              <form v-on:submit.prevent="onSubmit">
-                                <input type="hidden" id="coinSymbol" name="coinSymbol" :value="coin.symbol">
-                                <input type="number" id="ownedCoins" name="ownedCoins" :value="getOwnedCoins(coin.symbol)" >
-                                <button type="submit" >Submit</button>
-                              </form>
-
+                                <form v-on:submit.prevent="onSubmit">
+                                    <input type="hidden" id="coinSymbol" name="coinSymbol" :value="coin.symbol" />
+                                    <input type="number" id="ownedCoins" name="ownedCoins" :value="getOwnedCoins(coin.symbol)" />
+                                    <button type="submit">Submit</button>
+                                </form>
                             </td>
                             <td>{{ getOwnedCoins(coin.symbol) * coin.price }}</td>
-                            
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        
-        </div>
     </div>
-
+</div>
 </template>
 
 <script>
 export default {
-    
-    props: ['coins'],
+    props: ["coins"],
 
-    methods:{
-      getOwnedCoins(symbol) {
-        let amount = localStorage.getItem(symbol);
-        return amount ? amount : 0;
-      },
-      onSubmit(submitEvent){
-        localStorage.setItem(submitEvent.target.elements.coinSymbol.value, submitEvent.target.elements.ownedCoins.value);
-      }
+    methods: {
+        getOwnedCoins(symbol) {
+            let amount = localStorage.getItem(symbol);
+            return amount ? amount : 0;
+        },
+        onSubmit(submitEvent) {
+            localStorage.setItem(
+                submitEvent.target.elements.coinSymbol.value,
+                submitEvent.target.elements.ownedCoins.value
+            );
+        },
     },
-    computed: {
-    },
+    computed: {},
 
     data() {
-        return {
-          
-        };
+        return {};
     },
-    mounted() {
-    },
+    mounted() {},
 };
 </script>
 

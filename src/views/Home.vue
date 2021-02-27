@@ -58,6 +58,7 @@ export default {
                 .then(response => {
                     this.coins = response.data.data.map(x => {
                         return {
+                            id: x.id,
                             name: x.name,
                             symbol: x.symbol,
                             price: x.quote.USD.price,
