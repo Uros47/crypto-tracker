@@ -16,7 +16,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="coin in coins" :key="coin.symbol">
-                            <td>{{ coin.name }}</td>
+                            <td> {{ coin.name }}</td>
                             <td>{{ coin.symbol }}</td>
                             <td>{{ coin.price }}</td>
                             <td>{{ coin.percentChange }} %</td>
