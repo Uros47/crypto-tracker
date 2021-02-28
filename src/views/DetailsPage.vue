@@ -2,6 +2,7 @@
 <div>
     <crypto-loader v-if="isLoading"></crypto-loader>
     Details Page
+    {{cryptoCurrency.name}} {{cryptoCurrency.id}} {{cryptoCurrency.market_cap}}
 </div>
 </template>
 
@@ -20,7 +21,14 @@ export default {
         axios
             .get('http://localhost:5000/cryptocurrency/quotes/latest?id=' + cryptoId)
             .then(response => {
-                console.log(response.data.data[cryptoId]);
+                //console.log(response.data.data[cryptoId]);
+                const cryptoFromApi = response.data.data[cryptoId];
+
+                this.cryptoCurrency.id = cryptoFromApi.id;
+                this.cryptoCurrency.name = cryptoFromApi.name;
+                this.cryptoCurrency.market_cap = cryptoFromApi.quote.USD.market_cap;
+
+
                 this.isLoading = false;
             })
             .catch(error => {
@@ -31,7 +39,13 @@ export default {
 
     data() {
         return {
-            isLoading: false
+            isLoading: false,
+            cryptoCurrency: {
+                id: '',
+                name:'',
+                cmc_rank: '',
+                market_cap: ''
+            }
         };
     },
     components: {
