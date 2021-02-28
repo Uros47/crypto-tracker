@@ -2,7 +2,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-8">
-            <div class="example">
+           
                 <table class="table">
                     <thead>
                         <tr>
@@ -40,7 +40,7 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
+           
         </div>
     </div>
 </div>
