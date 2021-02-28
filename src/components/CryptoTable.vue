@@ -17,19 +17,26 @@
                     <tbody>
                         <tr v-for="coin in coins" :key="coin.symbol">
                             <td>
-                                <router-link :to="'/DetailsPage/' + coin.id">{{ coin.name }}</router-link>
+                                <router-link :to="'/DetailsPage/' + coin.id">{{coin.name}}</router-link>
                             </td>
                             <td>{{ coin.symbol }}</td>
                             <td>{{ coin.price }}</td>
-                            <td>{{ coin.percentChange }} %</td>
+                            <td v-bind:class="[coin.percentChange < 0 ? 'negative' : 'positive']" >{{ coin.percentChange }} %</td>
                             <td>
                                 <form v-on:submit.prevent="onSubmit">
                                     <input type="hidden" id="coinSymbol" name="coinSymbol" :value="coin.symbol" />
-                                    <input type="number" id="ownedCoins" name="ownedCoins" :value="getOwnedCoins(coin.symbol)" />
-                                    <button type="submit">Submit</button>
+
+                                    <input type="number" id="ownedCoins" name="ownedCoins" v-model="coin.inputedCoins" />
+                                    <div style="margin-top: 5px;">
+                                        <button v-bind:disabled="isDisabled(coin)" type="submit" style="width:50%;">
+                                            Submit
+                                        </button>
+                                    </div>
                                 </form>
                             </td>
-                            <td>{{ getOwnedCoins(coin.symbol) * coin.price }}</td>
+                            <td>
+                                {{ getOwnedCoinsPrice(coin) }}
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -44,38 +51,50 @@ export default {
     props: ["coins"],
 
     methods: {
-        getOwnedCoins(symbol) {
-            let amount = localStorage.getItem(symbol);
-            return amount ? amount : 0;
+        getOwnedCoinsPrice(coin) {
+            return coin.coinsOwned * coin.price
         },
         onSubmit(submitEvent) {
+
+            // put coin in local storage, key = coin symbol
             localStorage.setItem(
                 submitEvent.target.elements.coinSymbol.value,
                 submitEvent.target.elements.ownedCoins.value
             );
+
+            // find coin by short name, and update owned coins, so the '$ Value of your coin' changes also on submit
+ 
+            let coin = this.coins.find(x => x.symbol === submitEvent.target.elements.coinSymbol.value);
+        
+            coin.coinsOwned = submitEvent.target.elements.ownedCoins.value
         },
+        isDisabled(coin){
+            return coin.inputedCoins === '' || coin.inputedCoins < 0;
+        }
     },
     computed: {},
 
     data() {
-        return {};
+        return {
+        };
     },
     mounted() {},
+
+    created() {},
 };
 </script>
 
 <style lang="scss">
-.tableWrapper {
-    background-color: lightgray;
-    display: flex;
-    width: 100vw;
+
+.table tr:nth-child(even) {
+    background:#d8d8d8;
 }
 
-.box1 {
-    width: 20%;
+.positive {
+    color: green;
 }
 
-.box2 {
-    width: 20%;
+.negative {
+    color: red;
 }
 </style>
