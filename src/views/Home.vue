@@ -62,7 +62,9 @@ export default {
                             name: x.name,
                             symbol: x.symbol,
                             price: x.quote.USD.price,
-                            percentChange: x.quote.USD.percent_change_24h
+                            percentChange: x.quote.USD.percent_change_24h,
+                            coinsOwned: this.getCoinsOwned(x.symbol),
+                            inputedCoins: this.getCoinsOwned(x.symbol) == 0 ? "" : this.getCoinsOwned(x.symbol)
                         }
                     });
 
@@ -72,6 +74,12 @@ export default {
                     this.isLoading = false;
                     console.log(error);
                 });
+        },
+
+        getCoinsOwned(symbol){
+            let amount = localStorage.getItem(symbol);
+
+            return amount ? amount : 0;
         }
     },
 
