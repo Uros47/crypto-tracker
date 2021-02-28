@@ -1,0 +1,8 @@
+ Coinmarketcap zabranjuje JavaScrip pozive ka svom apiju iz clientskih aplikacija, morao sam da pokrenem dummy proxy server (node.js)
+ koji samo prosledjuje pozive ka cmc. Server sam preuzeo sa https://github.com/theBliz/cmc-proxy. 
+ 
+ Na serveru je potrebno uneti svoj api key.
+
+            Što se dizajna tiče, izvinjavam se zbog naivnog interfejsa, izgubio sam puno vremena oko problema sa rešavanjem HTTP zahteva.
+
+            Namenski sam, iz demonstrativnih razloga na CryptoTable komponenti koristio vanila css a na DetailsPage bootstrap.

@@ -39,7 +39,7 @@ export default {
         // 2) call fn that retrieves data from coinmarketcap, and fills table
         // 3) setInterval on 60sec that calls fn from step 2.
         /*
-            posto coinmarketcap zabranjuje pozive ka svom apiju iz clientskih aplikacija, morao sam da pokrenem dummy proxy server (node.js)
+            Coinmarketcap zabranjuje pozive ka svom apiju iz clientskih aplikacija, morao sam da pokrenem dummy proxy server (node.js)
             koji samo prosledjuje pozive ka cmc. Server sam preuzeo sa https://github.com/theBliz/cmc-proxy. Na serveru je samo potrebno da
             se unese svoj api key.
         */
